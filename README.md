@@ -4,7 +4,7 @@
 
 A simple Python program to recommend songs for a Spotify playlist based on the song genres within it. This tool uses the Spotify API through spotipy to analyze the genres of songs in your playlist and suggests similar songs that match those genres.
 
-"This is currently linked to my spotify account (don't judge my music taste please). To access your own, edit the ```UserID``` variable to your spotidy username. Also, uncomment the while loop comment and configure the playlistTracks variable to point to the selected playlist!
+"This is currently linked to my spotify account (don't judge my music taste please). To access your own, edit the ```UserID``` variable to your spotify username. Also, uncomment the while loop comment and configure the playlistTracks variable to point to the selected playlist!
 
 
 ## Prerequisites
