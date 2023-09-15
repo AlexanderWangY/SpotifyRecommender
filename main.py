@@ -11,9 +11,11 @@ if __name__ == '__main__':
         sp = spotipy.Spotify(auth_manager=cred_initialize)
 
         # UserID is the username of the user
-        UserID = "0o3133j3p3nrq81uoex50m50h"
+
+        UserID = input("What is your Spotify username: ")
 
         dictPL = sp.user_playlists(UserID)
+
         playlistDict = {}
 
         for x in dictPL["items"]:
@@ -23,22 +25,20 @@ if __name__ == '__main__':
         for x in playlistDict:
             print(x)
 
-        '''while(True):
+        while(True):
             searchPlaylist = input("What playlist should we recommend from?\n")
             if searchPlaylist in playlistDict:
                 break
             else:
                 print("Playlist not found! Please try again...")
-    '''
-        playlistTracks = sp.user_playlist_tracks(UserID, playlist_id=playlistDict["AlexWala Stream Music"], limit=100)
+
+        playlistTracks = sp.user_playlist_tracks(UserID, playlist_id=playlistDict[searchPlaylist], limit=100)
 
         artistArr = []
 
         for x in playlistTracks["items"]:
             # print(x["track"])
             artistArr.append(x["track"]["artists"][0]["id"])
-
-        print(artistArr)
 
         genreCountDict = {}
 
@@ -51,10 +51,7 @@ if __name__ == '__main__':
                 elif y in genreCountDict:
                     genreCountDict[y] += 1;
 
-        print(genreCountDict)
-
         sortedGenres = sorted(genreCountDict.items(), key=lambda x: int(x[1]))
-        print(sortedGenres)
 
         topGenres = []
 
@@ -65,4 +62,14 @@ if __name__ == '__main__':
             for x in sortedGenres:
                 topGenres.append(x[0])
 
-        print(topGenres)
+        print("\nWe think you'll like...\n")
+
+        for genres in topGenres:
+            randomIndex = random.randint(0, 50)
+            try:
+                currentTrack = sp.search(q=f"genres:{genres}", limit=50)["tracks"]["items"][randomIndex]
+                print(f"{currentTrack['name']} by: {currentTrack['artists'][0]['name']}")
+            except IndexError:
+                print()
+
+        print("\nThank you for using my program!")
